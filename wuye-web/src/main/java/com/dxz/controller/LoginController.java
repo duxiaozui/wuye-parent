@@ -51,7 +51,12 @@ public class LoginController {
         //随机验证码id,用于存入redis中的key，方便后期查找
         String captchaId = UUID.randomUUID().toString(true);
         //将验证码存入redis中
-        redisTemplate.opsForValue().set(RedisConstant.CAPTCHA_PRE + captchaId, captchaCode, RedisConstant.CAPTCHA_EXPIRE_TIME, TimeUnit.SECONDS);
+        //key+id,value（内容），时间，时间单位===》redis
+        redisTemplate.opsForValue().set(
+                RedisConstant.CAPTCHA_PRE + captchaId,
+                captchaCode,
+                RedisConstant.CAPTCHA_EXPIRE_TIME,
+                TimeUnit.SECONDS);
         //将验证码图片和id响应给客户端
         Map<String, String> map = new HashMap<>();
         map.put("captchaId", captchaId);
@@ -83,8 +88,11 @@ public class LoginController {
     @GetMapping("/getInfo")
     @ApiOperation("查看个人信息")
     public Result getInfo() {
+        //获取上下文的身份验证
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //获取身份信息
         Object principal = authentication.getPrincipal();
+
         if (principal instanceof SysUser) {
             SysUser sysUser = (SysUser) principal;
             return Result.success(sysUser);
@@ -92,5 +100,6 @@ public class LoginController {
             LiveUser liveUser = (LiveUser) principal;
             return Result.success(liveUser);
         }
+
     }
 }

@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 /**
  * @author duxiaozui(董文宇)
  * 日期 2023/18/21(星期五) 14:18
- * request：
+ * request：逆向工程
  */
 
 public class GetCodeTest {

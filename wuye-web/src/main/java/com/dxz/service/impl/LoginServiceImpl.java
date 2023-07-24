@@ -98,6 +98,7 @@ public class LoginServiceImpl implements LoginService {
     //校验验证码
     private void validCaptcha(String captchaId, String captchaCode) {
         //获取redis中存取的验证码内容
+        //opsForValue（）方法获取值
         String captchaCode2 = (String) redisTemplate.opsForValue().get(RedisConstant.CAPTCHA_PRE + captchaId);
         if (!captchaCode.equalsIgnoreCase(captchaCode2)) {
             throw new RuntimeException("验证码错误");
