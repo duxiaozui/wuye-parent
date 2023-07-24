@@ -1,7 +1,9 @@
 package com.dxz.service;
 
-import com.dxz.entity.SysUser;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dxz.entity.SysUser;
+import com.dxz.utils.SysUserParam;
 
 /**
  * <p>
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-07-21
  */
 public interface ISysUserService extends IService<SysUser> {
-
+    IPage<SysUser> list(SysUserParam sysUserParam);
 }

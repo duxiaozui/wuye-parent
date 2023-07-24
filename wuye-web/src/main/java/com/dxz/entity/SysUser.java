@@ -1,8 +1,7 @@
 package com.dxz.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -74,9 +73,13 @@ public class SysUser implements Serializable, UserDetails {
     private boolean deleted;
 
     @ApiModelProperty("创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    @JsonIgnore
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @JsonIgnore
     private LocalDateTime updateTime;
 
 
