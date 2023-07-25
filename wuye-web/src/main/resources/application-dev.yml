@@ -43,5 +43,5 @@ mybatis-plus:
       insert-strategy: not_empty
       logic-not-delete-value: 1
       logic-delete-value: 0
-  mapper-locations: classpath:/com/dxz/*/mapper/xml/*.xml
+  mapper-locations: classpath:/com/dxz/mapper/xml/*.xml
 

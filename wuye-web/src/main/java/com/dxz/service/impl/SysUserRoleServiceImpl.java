@@ -1,10 +1,15 @@
 package com.dxz.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dxz.entity.SysUserRole;
 import com.dxz.mapper.SysUserRoleMapper;
 import com.dxz.service.ISysUserRoleService;
+import com.dxz.utils.SaveRoleIdsByUserIdParam;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -17,4 +22,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements ISysUserRoleService {
 
+    @Override
+    public boolean saveRoleIdsByUserId(SaveRoleIdsByUserIdParam param) {
+        //清空用户起初拥有的角色id关联
+        LambdaQueryWrapper<SysUserRole> query = new LambdaQueryWrapper<>();
+        query.eq(SysUserRole::getUserId, param.getUserId());
+        this.baseMapper.delete(query);
+        //保存为用户新分配的角色信息
+        List<Integer> roleIds = param.getRoleIds();
+        if (!Objects.isNull(roleIds) && roleIds.size() > 0) {
+            for (Integer roleId : roleIds) {
+                SysUserRole sysUserRole = new SysUserRole();
+                sysUserRole.setUserId(param.getUserId());
+                sysUserRole.setRoleId(roleId);
+                this.baseMapper.insert(sysUserRole);
+            }
+        }
+        return true;
+    }
 }

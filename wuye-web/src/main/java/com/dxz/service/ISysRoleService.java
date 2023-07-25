@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dxz.entity.SysRole;
 import com.dxz.utils.SysRoleParam;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色表 服务类
@@ -16,4 +18,6 @@ import com.dxz.utils.SysRoleParam;
 public interface ISysRoleService extends IService<SysRole> {
 
     IPage<SysRole> list(SysRoleParam sysRoleParam);
+
+    List<SysRole> checkRoles(Integer userId);
 }

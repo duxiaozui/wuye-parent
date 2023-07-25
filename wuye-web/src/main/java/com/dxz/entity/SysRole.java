@@ -46,4 +46,7 @@ public class SysRole implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
+    @ApiModelProperty("角色的选中状态")
+    @TableField(exist = false)
+    private boolean checked = false;
 }

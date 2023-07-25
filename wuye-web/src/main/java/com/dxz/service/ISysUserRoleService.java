@@ -1,7 +1,8 @@
 package com.dxz.service;
 
-import com.dxz.entity.SysUserRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dxz.entity.SysUserRole;
+import com.dxz.utils.SaveRoleIdsByUserIdParam;
 
 /**
  * <p>
@@ -12,5 +13,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-07-21
  */
 public interface ISysUserRoleService extends IService<SysUserRole> {
+
+    boolean saveRoleIdsByUserId(SaveRoleIdsByUserIdParam param);
+
 
 }
