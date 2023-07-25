@@ -1,7 +1,9 @@
 package com.dxz.service;
 
-import com.dxz.entity.SysRole;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dxz.entity.SysRole;
+import com.dxz.utils.SysRoleParam;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysRoleService extends IService<SysRole> {
 
+    IPage<SysRole> list(SysRoleParam sysRoleParam);
 }

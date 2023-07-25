@@ -1,7 +1,9 @@
 package com.dxz.service;
 
-import com.dxz.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dxz.entity.SysMenu;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysMenuService extends IService<SysMenu> {
 
+    List<SysMenu> getList();
+
+    List<SysMenu> getParentList();
 }
