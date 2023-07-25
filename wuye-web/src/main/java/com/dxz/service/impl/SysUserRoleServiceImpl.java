@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dxz.entity.SysUserRole;
 import com.dxz.mapper.SysUserRoleMapper;
+import com.dxz.param.SaveRoleIdsByUserIdParam;
 import com.dxz.service.ISysUserRoleService;
-import com.dxz.utils.SaveRoleIdsByUserIdParam;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

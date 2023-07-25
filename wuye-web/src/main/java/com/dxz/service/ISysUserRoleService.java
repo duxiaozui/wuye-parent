@@ -2,7 +2,7 @@ package com.dxz.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dxz.entity.SysUserRole;
-import com.dxz.utils.SaveRoleIdsByUserIdParam;
+import com.dxz.param.SaveRoleIdsByUserIdParam;
 
 /**
  * <p>

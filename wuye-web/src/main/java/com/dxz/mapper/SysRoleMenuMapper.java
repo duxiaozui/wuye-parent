@@ -1,7 +1,9 @@
 package com.dxz.mapper;
 
-import com.dxz.entity.SysRoleMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dxz.entity.SysRoleMenu;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
 
+    List<Integer> selectMenuIdsByRoleId(Integer roleId);
 }

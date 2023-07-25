@@ -3,7 +3,7 @@ package com.dxz.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dxz.entity.SysRole;
-import com.dxz.utils.SysRoleParam;
+import com.dxz.param.SysRoleParam;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package com.dxz.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dxz.entity.SysUser;
-import com.dxz.utils.SysUserParam;
+import com.dxz.param.SysUserParam;
 
 /**
  * <p>

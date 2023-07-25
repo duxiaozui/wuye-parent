@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dxz.entity.SysUser;
 import com.dxz.mapper.SysUserMapper;
+import com.dxz.param.SysUserParam;
 import com.dxz.service.ISysUserService;
-import com.dxz.utils.SysUserParam;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

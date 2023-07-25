@@ -1,10 +1,13 @@
 package com.dxz.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.dxz.entity.CheckMenuTreeVo;
 import com.dxz.entity.SysRole;
+import com.dxz.param.SaveMenuIdsByRoleIdParam;
+import com.dxz.param.SysRoleParam;
+import com.dxz.service.ISysMenuService;
 import com.dxz.service.ISysRoleService;
 import com.dxz.utils.Result;
-import com.dxz.utils.SysRoleParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ import org.springframework.web.bind.annotation.*;
 public class SysRoleController {
     @Autowired
     private ISysRoleService roleService;
+    @Autowired
+    private ISysMenuService menuService;
 
     @ApiOperation("角色列表")
     @GetMapping("/list")
@@ -60,5 +65,22 @@ public class SysRoleController {
             return Result.success();
         }
         return Result.error(500, "删除失败");
+    }
+
+    /**
+     * 编写获得分配权限菜单、和保存角色拥有的权限
+     */
+    @ApiOperation("获得分配权限菜单")
+    @GetMapping("/getAssignTree/{roleId}")
+    public Result getAssignTree(@PathVariable("roleId") Integer roleId) {
+        CheckMenuTreeVo checkMenuTreeVo = menuService.getAssignTree(roleId);
+        return Result.success(checkMenuTreeVo);
+    }
+
+    @ApiOperation("保存角色拥有的权限信息")
+    @PutMapping("/saveMenuIdsByRoleId")
+    public Result saveMenuIdsByRoleId(@RequestBody SaveMenuIdsByRoleIdParam param) {
+        menuService.saveMenuIdsByRoleId(param);
+        return Result.success();
     }
 }

@@ -1,7 +1,9 @@
 package com.dxz.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dxz.entity.CheckMenuTreeVo;
 import com.dxz.entity.SysMenu;
+import com.dxz.param.SaveMenuIdsByRoleIdParam;
 
 import java.util.List;
 
@@ -18,4 +20,8 @@ public interface ISysMenuService extends IService<SysMenu> {
     List<SysMenu> getList();
 
     List<SysMenu> getParentList();
+
+    CheckMenuTreeVo getAssignTree(Integer roleId);
+
+    void saveMenuIdsByRoleId(SaveMenuIdsByRoleIdParam param);
 }

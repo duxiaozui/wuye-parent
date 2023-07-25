@@ -1,4 +1,4 @@
-package com.dxz.utils;
+package com.dxz.param;
 
 import com.dxz.entity.SysMenu;
 import org.springframework.beans.BeanUtils;
