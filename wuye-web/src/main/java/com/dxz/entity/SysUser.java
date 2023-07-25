@@ -58,16 +58,16 @@ public class SysUser implements Serializable, UserDetails {
     private String password;
 
     @ApiModelProperty("账号是否可用；0不可用，1可用")
-    private boolean enabled;
+    private boolean enabled = true;
 
     @ApiModelProperty("账户是否锁定;0锁定，1未锁定")
-    private boolean accountNonLocked;
-
+    private boolean accountNonLocked = true;
+    
     @ApiModelProperty("账号是否过期;0过期，1未过期")
-    private boolean accountNonExpired;
+    private boolean accountNonExpired = true;
 
     @ApiModelProperty("密码是否过期;0过期，1未过期")
-    private boolean credentialsNonExpired;
+    private boolean credentialsNonExpired = true;
 
     @ApiModelProperty("假删字段；0删除，1未删除")
     private boolean deleted;
