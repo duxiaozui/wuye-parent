@@ -70,7 +70,8 @@ public class SysUser implements Serializable, UserDetails {
     private boolean credentialsNonExpired = true;
 
     @ApiModelProperty("假删字段；0删除，1未删除")
-    private boolean deleted;
+    @TableLogic
+    private Integer deleted;
 
     @ApiModelProperty("创建时间")
     @TableField(fill = FieldFill.INSERT)

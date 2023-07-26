@@ -1,15 +1,14 @@
 package com.dxz.web.fee.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -53,13 +52,45 @@ public class FeeWater implements Serializable {
     private LocalDateTime payWaterTime;
 
     @ApiModelProperty("假删【0：删除】【1：未删除】")
+    @TableLogic
     private Integer deleted;
 
     @ApiModelProperty("创建日期")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新日期")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    //排除字段
+    @ApiModelProperty("用户名")
+    @TableField(exist = false)
+    private String username;
+
+    @ApiModelProperty("手机号")
+    @TableField(exist = false)
+    private String phone;
+
+    @ApiModelProperty("楼栋id")
+    @TableField(exist = false)
+    private Integer buildId;
+
+    @ApiModelProperty("楼栋名称")
+    @TableField(exist = false)
+    private String buildName;
+
+    @ApiModelProperty("单元id")
+    @TableField(exist = false)
+    private Integer unitId;
+
+    @ApiModelProperty("单元名称")
+    @TableField(exist = false)
+    private String unitName;
+
+    @ApiModelProperty("房屋编号")
+    @TableField(exist = false)
+    private String houseNum;
 
 
 }

@@ -1,7 +1,9 @@
 package com.dxz.web.fee.service;
 
-import com.dxz.web.fee.entity.FeeWater;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dxz.web.fee.entity.FeeWater;
+import com.dxz.web.fee.param.FeeWaterParam;
 
 /**
  * <p>
@@ -13,4 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IFeeWaterService extends IService<FeeWater> {
 
+    IPage<FeeWater> getList(FeeWaterParam param);
+
+    void saveFeeWater(FeeWater feeWater);
+
+    void updateFeeWater(FeeWater feeWater);
 }
