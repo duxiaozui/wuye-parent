@@ -1,6 +1,7 @@
 package com.dxz.web.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -35,7 +36,7 @@ public class LiveUserServiceImpl extends ServiceImpl<LiveUserMapper, LiveUser> i
     private LiveHouseMapper liveHouseMapper;
     @Autowired
     private HouseListMapper houseListMapper;
-    
+
 
     @Override
     public IPage<LiveUser> getList(LiveUserParam param) {
@@ -90,5 +91,23 @@ public class LiveUserServiceImpl extends ServiceImpl<LiveUserMapper, LiveUser> i
         houseList.setStatus(1);
         houseListMapper.updateById(houseList);
 
+    }
+
+    @Override //退房
+    public void returnHouse(AssignHouseParam param) {
+        //更新租户和房屋关系表状态为解绑
+        LiveHouse liveHouse = new LiveHouse();
+        liveHouse.setUseStatus(0);
+        QueryWrapper<LiveHouse> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(LiveHouse::getHouseId, param.getHouseId())
+                .eq(LiveHouse::getUserId, param.getUserId())
+                .eq(LiveHouse::getUseStatus, 1);
+        liveHouseMapper.update(liveHouse, queryWrapper);
+        //更新房屋表的使用状态为未使用
+        HouseList houseList = new HouseList();
+        houseList.setStatus(0);
+        QueryWrapper<HouseList> query = new QueryWrapper();
+        query.lambda().eq(HouseList::getHouseId, param.getHouseId());
+        houseListMapper.update(houseList, query);
     }
 }

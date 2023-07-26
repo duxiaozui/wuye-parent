@@ -1,11 +1,18 @@
 package com.dxz.web.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dxz.utils.Result;
+import com.dxz.web.fee.entity.FeePower;
+import com.dxz.web.fee.entity.FeeWater;
+import com.dxz.web.fee.service.IFeePowerService;
+import com.dxz.web.fee.service.IFeeWaterService;
+import com.dxz.web.system.entity.LiveHouse;
 import com.dxz.web.system.entity.LiveUser;
 import com.dxz.web.system.param.AssignHouseParam;
 import com.dxz.web.system.param.LiveUserParam;
+import com.dxz.web.system.service.ILiveHouseService;
 import com.dxz.web.system.service.ILiveUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -31,6 +39,13 @@ public class LiveUserController {
     private ILiveUserService liveUserService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private IFeePowerService feePowerService;
+    @Autowired
+    private IFeeWaterService feeWaterService;
+    @Autowired
+    private ILiveHouseService liveHouseService;
+
 
     @ApiOperation("业主列表")
     @GetMapping("/list")
@@ -83,5 +98,55 @@ public class LiveUserController {
     public Result assignHouse(@RequestBody AssignHouseParam param) {
         liveUserService.assignHouse(param);
         return Result.success();
+    }
+
+    @ApiOperation("退房")
+    @PostMapping("/returnHouse")
+    public Result returnHouse(@RequestBody AssignHouseParam param) {
+        //1.查询电费、水费是否交清
+        QueryWrapper<FeePower> queryPower = new QueryWrapper<>();
+        queryPower.lambda().eq(FeePower::getHouseId, param.getHouseId())
+                .eq(FeePower::getUserId, param.getUserId())
+                .eq(FeePower::getPayPowerStatus, "0");
+        List<FeePower> powerList = feePowerService.list(queryPower);
+        if (powerList != null && powerList.size() > 0) {
+            return Result.error(500, "请缴完电费之后在退房");
+        }
+        QueryWrapper<FeeWater> queryWater = new QueryWrapper<>();
+        queryWater.lambda().eq(FeeWater::getHouseId, param.getHouseId())
+                .eq(FeeWater::getUserId, param.getUserId())
+                .eq(FeeWater::getPayWaterStatus, "0");
+        List<FeeWater> waterList = feeWaterService.list(queryWater);
+        if (waterList != null && waterList.size() > 0) {
+            return Result.error(500, "请缴完水费之后在退房");
+        }
+        //2.退房
+        liveUserService.returnHouse(param);
+        return Result.success();
+
+    }
+
+    @ApiOperation("删除业主")
+    @DeleteMapping(value = {"/{userId}/{houseId}", "/{userId}"})
+    public Result deleteUser(@PathVariable("userId") Integer userId,
+                             @PathVariable(value = "houseId", required = false) Integer houseId) {
+        if (houseId != null) {
+            //1.查询用户是否退房
+            QueryWrapper<LiveHouse> queryWrapper = new QueryWrapper<>();
+            queryWrapper.lambda().eq(LiveHouse::getUserId, userId)
+                    .eq(LiveHouse::getHouseId, houseId)
+                    .eq(LiveHouse::getUseStatus, 1);
+            List<LiveHouse> list = liveHouseService.list(queryWrapper);
+            if (list != null && list.size() > 0) {
+                return Result.error(500, "请退房后在删除业主");
+            }
+        }
+
+        //2.删除业主
+        boolean remove = liveUserService.removeById(userId);
+        if (remove) {
+            return Result.success();
+        }
+        return Result.error(500, "删除失败");
     }
 }

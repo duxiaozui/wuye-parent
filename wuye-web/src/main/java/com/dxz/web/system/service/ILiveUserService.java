@@ -25,4 +25,6 @@ public interface ILiveUserService extends IService<LiveUser> {
     LiveUser getUser(Integer userId);
 
     void assignHouse(AssignHouseParam param);
+
+    void returnHouse(AssignHouseParam param);
 }
