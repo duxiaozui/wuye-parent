@@ -1,5 +1,6 @@
 package com.dxz.web.house.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dxz.utils.Result;
 import com.dxz.web.house.entity.HouseList;
@@ -9,6 +10,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -61,5 +64,14 @@ public class HouseListController {
             return Result.success();
         }
         return Result.error(500, "删除失败");
+    }
+
+    @ApiOperation("根据单元id获取房屋列表")
+    @GetMapping("/getHouseByUnitId/{unitId}")
+    public Result getHouseByUnitId(@PathVariable("unitId") Integer unitId) {
+        QueryWrapper<HouseList> query = new QueryWrapper<>();
+        query.lambda().eq(HouseList::getUnitId, unitId);
+        List<HouseList> list = houseListService.list(query);
+        return Result.success(list);
     }
 }

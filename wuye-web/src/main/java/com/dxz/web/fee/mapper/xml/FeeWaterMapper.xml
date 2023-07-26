@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxz.web.fee.mapper.FeeWaterMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dxz.web.fee.entity.FeeWater">
+        <id column="water_id" property="waterId" />
+        <result column="house_id" property="houseId" />
+        <result column="user_id" property="userId" />
+        <result column="pay_water_month" property="payWaterMonth" />
+        <result column="pay_water_money" property="payWaterMoney" />
+        <result column="waterr_num" property="waterrNum" />
+        <result column="pay_water_status" property="payWaterStatus" />
+        <result column="pay_water_time" property="payWaterTime" />
+        <result column="deleted" property="deleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        water_id, house_id, user_id, pay_water_month, pay_water_money, waterr_num, pay_water_status, pay_water_time, deleted, create_time, update_time
+    </sql>
+
+</mapper>
