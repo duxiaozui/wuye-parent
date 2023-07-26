@@ -1,7 +1,10 @@
 package com.dxz.web.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dxz.web.system.entity.LiveUser;
+import com.dxz.web.system.param.AssignHouseParam;
+import com.dxz.web.system.param.LiveUserParam;
 
 /**
  * <p>
@@ -13,4 +16,13 @@ import com.dxz.web.system.entity.LiveUser;
  */
 public interface ILiveUserService extends IService<LiveUser> {
 
+    IPage<LiveUser> getList(LiveUserParam param);
+
+    void saveLiveUser(LiveUser liveUser);
+
+    void editLiveUser(LiveUser liveUser);
+
+    LiveUser getUser(Integer userId);
+
+    void assignHouse(AssignHouseParam param);
 }

@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色表 前端控制器
@@ -82,5 +84,15 @@ public class SysRoleController {
     public Result saveMenuIdsByRoleId(@RequestBody SaveMenuIdsByRoleIdParam param) {
         menuService.saveMenuIdsByRoleId(param);
         return Result.success();
+    }
+
+    /**
+     * @return 补充查询所有角色代码
+     */
+    @ApiOperation("获取所有角色列表")
+    @GetMapping("/getList")
+    public Result getList() {
+        List<SysRole> list = roleService.list();
+        return Result.success(list);
     }
 }

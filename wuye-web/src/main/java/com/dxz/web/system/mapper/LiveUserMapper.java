@@ -1,7 +1,9 @@
 package com.dxz.web.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.dxz.web.system.entity.LiveUser;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -15,4 +17,7 @@ import com.dxz.web.system.entity.LiveUser;
 public interface LiveUserMapper extends BaseMapper<LiveUser> {
 
 
+    IPage<LiveUser> getList(IPage<LiveUser> page, @Param("trueName") String trueName, @Param("phone") String phone);
+
+    LiveUser getUser(@Param("userId") Integer userId);
 }
