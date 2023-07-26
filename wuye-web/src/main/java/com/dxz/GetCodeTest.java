@@ -48,7 +48,7 @@ public class GetCodeTest {
                             .outputDir(projectPath + "/wuye-web/src/main/java");
                 })
                 .packageConfig((builder) -> {
-                    builder.parent("com.dxz");
+                    builder.parent("com.dxz.web.house");
                 })
                 .strategyConfig((scanner, builder) -> {
                     builder.addInclude(scanner.apply("请输入表名,多个表用,隔开"))
@@ -68,7 +68,7 @@ public class GetCodeTest {
     //    包配置
     private PackageConfig.Builder packageConfig() {
         return new PackageConfig.Builder()
-                .parent("com.dxz")
+                .parent("com.dxz.web.house")
                 .entity("po")
                 .service("service")
                 .serviceImpl("service.impl")

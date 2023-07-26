@@ -1,10 +1,10 @@
 package com.dxz.config.security;
 
-import com.dxz.entity.LiveUser;
-import com.dxz.entity.SysUser;
 import com.dxz.utils.JwtUtils;
 import com.dxz.utils.RedisConstant;
 import com.dxz.utils.SystemConstant;
+import com.dxz.web.system.entity.LiveUser;
+import com.dxz.web.system.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
