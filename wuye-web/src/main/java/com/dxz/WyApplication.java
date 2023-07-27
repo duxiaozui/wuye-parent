@@ -13,5 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WyApplication {
     public static void main(String[] args) {
         SpringApplication.run(WyApplication.class, args);
+        //SpringApplication springApplication = new SpringApplication(WyApplication.class);
+        //springApplication.setBannerMode(Banner.Mode.CONSOLE);
+        //springApplication.run(args);
     }
 }

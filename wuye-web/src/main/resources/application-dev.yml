@@ -28,6 +28,17 @@ spring:
         max-idle: 8
         min-idle: 0
         max-wait: 100ms
+  #  整合  MongoDB
+  data:
+    mongodb:
+      host: 127.0.0.1
+      database: wy_db
+      port: 27017
+
+  banner:
+    location: banner.txt
+
+
   #  配置文件解决兼容问题
 #  mvc:
 #    pathmatch:
