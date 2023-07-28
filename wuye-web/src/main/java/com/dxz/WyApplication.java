@@ -1,6 +1,7 @@
 package com.dxz;
 
 
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,9 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class WyApplication {
     public static void main(String[] args) {
-        SpringApplication.run(WyApplication.class, args);
-        //SpringApplication springApplication = new SpringApplication(WyApplication.class);
-        //springApplication.setBannerMode(Banner.Mode.CONSOLE);
-        //springApplication.run(args);
+//        SpringApplication.run(WyApplication.class, args);
+        SpringApplication springApplication = new SpringApplication(WyApplication.class);
+        springApplication.setBannerMode(Banner.Mode.OFF);
+        springApplication.run(args);
     }
 }

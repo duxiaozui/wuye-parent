@@ -70,6 +70,7 @@ public class SecurityConfig {
         http.authorizeRequests().anyRequest().authenticated();
         //配置认证失败处理
         http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+
         return http.build();
     }
 

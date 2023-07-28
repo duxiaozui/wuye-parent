@@ -42,6 +42,7 @@ public class SysUserController {
     @ApiOperation("新增用户")
     @PostMapping
     public Result addUser(@RequestBody SysUser user) {
+        //在用户注册或密码修改时正确地调用encode方法来加密密码
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         boolean save = userService.save(user);
         if (save) {
@@ -62,7 +63,9 @@ public class SysUserController {
 
     @ApiOperation("删除用户")
     @DeleteMapping("/{userId}")
-    public Result deleteUser(@PathVariable("userId") Integer userId) {
+    public Result deleteUser(
+            @PathVariable("userId")//用于将URL中的路径变量绑定到方法参数上
+            Integer userId) {
         boolean remove = userService.removeById(userId);
         if (remove) {
             return Result.success();

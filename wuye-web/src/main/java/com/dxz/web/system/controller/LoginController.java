@@ -68,7 +68,7 @@ public class LoginController {
     @ApiOperation("登录处理")
     public Result login(
             @RequestBody
-            @Valid
+            @Valid//用于启用Bean验证
             @ApiParam(value = "登录需要参数", required = true)
             BaseParam.LoginParam loginParam) {
         return loginService.login(loginParam);
@@ -88,11 +88,10 @@ public class LoginController {
     @GetMapping("/getInfo")
     @ApiOperation("查看个人信息")
     public Result getInfo() {
-        //获取上下文的身份验证
+        //获取上下文的身份验证:用于获取当前用户的认证信息（Authentication）的常用方法
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //获取身份信息
+        //获取身份信息:用于获取认证对象中的主体（Principal）信息
         Object principal = authentication.getPrincipal();
-
         if (principal instanceof SysUser) {
             SysUser sysUser = (SysUser) principal;
             return Result.success(sysUser);

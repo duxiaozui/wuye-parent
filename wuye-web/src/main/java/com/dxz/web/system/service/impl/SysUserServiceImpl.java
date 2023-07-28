@@ -24,7 +24,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public IPage<SysUser> list(SysUserParam sysUserParam) {
-//构建分页对象
+        //构建分页对象
         IPage<SysUser> page = new Page(sysUserParam.getCurrentPage(), sysUserParam.getPageSize());
         //构建查询条件
         LambdaQueryWrapper<SysUser> query = new LambdaQueryWrapper<>();

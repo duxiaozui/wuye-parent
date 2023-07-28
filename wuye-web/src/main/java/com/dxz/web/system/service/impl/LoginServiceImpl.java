@@ -38,9 +38,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Result login(BaseParam.LoginParam loginParam) {
-        //校验验证码是否正确
+        //调用构造方法validCaptcha---校验验证码是否正确
         validCaptcha(loginParam.getCaptchaId(), loginParam.getCaptchaCode());
-        //校验用户名密码是否正确
+        //调用构造方法validUsernameAndPassword---校验用户名密码是否正确
         Authentication authentication = validUsernameAndPassword(loginParam.getUsername(), loginParam.getUserType(), loginParam.getPassword());
         //将用户信息存入redis,并响应token数据
         return responseToken(loginParam.getUserType(), authentication);
@@ -48,10 +48,13 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public Result logout() {
+        //进行身份认证:用于获取当前用户的认证信息（Authentication）的常用方法。
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //用于获取认证对象中的主体（Principal）信息
         Object principal = authentication.getPrincipal();
         if (principal instanceof LiveUser) {
             LiveUser liveUser = (LiveUser) principal;
+            //从Redis数据库中删除一个键:该键的名称由RedisConstant.LOGIN_LIVE_USER_PRE和liveUser.getUserId()拼接而成
             redisTemplate.delete(RedisConstant.LOGIN_LIVE_USER_PRE + liveUser.getUserId());
         } else if (principal instanceof SysUser) {
             SysUser sysUser = (SysUser) principal;

@@ -35,9 +35,6 @@ spring:
       database: wy_db
       port: 27017
 
-  banner:
-    location: banner.txt
-
 
   #  配置文件解决兼容问题
 #  mvc:

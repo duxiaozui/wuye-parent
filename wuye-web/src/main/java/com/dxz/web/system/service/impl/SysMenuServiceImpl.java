@@ -79,7 +79,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public void saveMenuIdsByRoleId(SaveMenuIdsByRoleIdParam param) {
-//删除角色最初拥有的菜单关联数据
+        //删除角色最初拥有的菜单关联数据
         LambdaQueryWrapper<SysRoleMenu> query = new LambdaQueryWrapper<>();
         query.eq(SysRoleMenu::getRoleId, param.getRoleId());
         roleMenuMapper.delete(query);
