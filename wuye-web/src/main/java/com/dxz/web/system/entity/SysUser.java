@@ -7,11 +7,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -83,10 +86,19 @@ public class SysUser implements Serializable, UserDetails {
     @JsonIgnore
     private LocalDateTime updateTime;
 
+    @ApiModelProperty("菜单权限")
+    @TableField(exist = false)
+    private String[] menus;
+
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> result = new ArrayList<>();
+        for (String menu : this.menus) {
+            result.add(new SimpleGrantedAuthority(menu));
+        }
+        return result;
     }
 
 }

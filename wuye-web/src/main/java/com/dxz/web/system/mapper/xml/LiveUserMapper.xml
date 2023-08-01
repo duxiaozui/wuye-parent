@@ -54,5 +54,14 @@
         where lu.user_id = lr.user_id
           and lu.user_id = #{userId}
     </select>
+    <select id="getMenus" resultType="java.lang.String" parameterType="int">
+        select m.menu_code
+        from live_role lr,
+             sys_role_menu rm,
+             sys_menu m
+        where lr.role_id = rm.role_id
+          and rm.menu_id = m.menu_id
+          and lr.user_id = #{userId}
+    </select>
 
 </mapper>

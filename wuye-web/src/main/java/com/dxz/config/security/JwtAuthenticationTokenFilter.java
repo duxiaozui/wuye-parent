@@ -63,7 +63,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         //刷新token和redis有效期
         String refreshToken = jwtUtils.refreshToken(token);
         response.setHeader("Access-Control-Expose-Headers", "Authorization");
-        response.addHeader("Authorization", refreshToken);
+        //response.addHeader("Authorization", refreshToken);
+        response.addHeader("token", refreshToken);
+
 
         //判断用户类型，取出对应用户信息,刷新缓存
         if (SystemConstant.USER_TYPE_WUZHU == userType) {
@@ -75,7 +77,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
             //将用户信息存入SecurityContextHolder中
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(sysUser, null, null);
+                    new UsernamePasswordAuthenticationToken(sysUser, null, sysUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             //放行
             filterChain.doFilter(request, response);
@@ -88,7 +90,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
             //将用户信息存入SecurityContextHolder中
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(liveUser, null, null);
+                    new UsernamePasswordAuthenticationToken(liveUser, null, liveUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             //放行
             filterChain.doFilter(request, response);

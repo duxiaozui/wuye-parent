@@ -1,16 +1,20 @@
 package com.dxz.web.system.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -100,10 +104,19 @@ public class LiveUser implements Serializable, UserDetails {
     @TableField(exist = false)
     private Integer useStatus;
 
+    @ApiModelProperty("菜单权限")
+    @TableField(exist = false)
+    private String[] menus;
+
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> result = new ArrayList<>();
+        for (String menu : this.menus) {
+            result.add(new SimpleGrantedAuthority(menu));
+        }
+        return result;
     }
 
 

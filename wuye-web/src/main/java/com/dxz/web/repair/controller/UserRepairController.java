@@ -9,6 +9,7 @@ import com.dxz.web.system.entity.SysUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class UserRepairController {
 
     @ApiOperation("维修列表")
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('wy:repair:list')")
     public Result getList(UserRepairParam param) {
         Map<String, Object> map = userRepairService.getList(param);
         return Result.success(map);

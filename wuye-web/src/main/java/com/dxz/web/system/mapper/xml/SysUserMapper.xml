@@ -26,5 +26,14 @@
     <sql id="Base_Column_List">
         user_id, true_name, phone, sex, id_card, is_admin, status, username, password, enabled, account_non_locked, account_non_expired, credentials_non_expired, deleted, create_time, update_time
     </sql>
+    <select id="getMenus" resultType="java.lang.String" parameterType="int">
+        select m.menu_code
+        from sys_user_role ur,
+             sys_role_menu rm,
+             sys_menu m
+        where ur.role_id = rm.role_id
+          and rm.menu_id = m.menu_id
+          and ur.user_id = #{userId}
+    </select>
 
 </mapper>

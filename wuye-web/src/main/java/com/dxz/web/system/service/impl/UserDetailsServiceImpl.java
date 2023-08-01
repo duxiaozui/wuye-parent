@@ -3,8 +3,10 @@ package com.dxz.web.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dxz.utils.SystemConstant;
 import com.dxz.web.system.entity.LiveUser;
+import com.dxz.web.system.entity.SysMenu;
 import com.dxz.web.system.entity.SysUser;
 import com.dxz.web.system.mapper.LiveUserMapper;
+import com.dxz.web.system.mapper.SysMenuMapper;
 import com.dxz.web.system.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author duxiaozui(董文宇)
@@ -26,6 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private SysUserMapper sysUserMapper;
     @Autowired
     private LiveUserMapper liveUserMapper;
+    @Autowired
+    private SysMenuMapper menuMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -41,6 +47,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (Objects.isNull(user)) {
                 throw new RuntimeException("用户名错误");
             }
+            //查询物主权限
+            Integer isAdmin = user.getIsAdmin();
+            List<String> menus;
+            if (isAdmin == 1) {
+                //查询使用菜单
+                List<SysMenu> menuList = menuMapper.selectList(null);
+                menus = menuList.stream().map(SysMenu::getMenuCode).collect(Collectors.toList());
+            } else {
+                menus = sysUserMapper.getMenus(user.getUserId());
+            }
+            user.setMenus(menus.toArray(new String[menus.size()]));
             return user;
         } else if (userType == SystemConstant.USER_TYPE_YEZHU) {
             QueryWrapper<LiveUser> query = new QueryWrapper();
@@ -49,6 +66,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (Objects.isNull(user)) {
                 throw new RuntimeException("用户名错误");
             }
+            //查询业主权限
+            List<String> menus = liveUserMapper.getMenus(user.getUserId());
+            user.setMenus(menus.toArray(new String[menus.size()]));
             return user;
         } else {
             return null;
