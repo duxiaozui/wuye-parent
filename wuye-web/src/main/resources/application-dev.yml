@@ -35,6 +35,13 @@ spring:
       database: wy_db
       port: 27017
 
+  servlet:
+    #    控制视频上传大小
+    multipart:
+      enabled: true
+      max-file-size: 1GB
+      max-request-size: 3GB
+
 
   #  配置文件解决兼容问题
 #  mvc:

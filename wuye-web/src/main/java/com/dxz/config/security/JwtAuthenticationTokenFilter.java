@@ -39,6 +39,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         //获取token
         //String token = request.getHeader("authorization");
         String token = request.getHeader("token");
+        //在参数上获取authorization
+        if (!StringUtils.hasText(token)) {
+            token = request.getParameter("token");
+        }
         if (!StringUtils.hasText(token)) {
             //放行
             filterChain.doFilter(request, response);
