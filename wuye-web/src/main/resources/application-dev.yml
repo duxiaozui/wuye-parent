@@ -8,7 +8,7 @@ config:
     secret: duxiaozui
     #30分钟过期
     expiration: 1800000
-
+  
 
 spring:
   datasource:

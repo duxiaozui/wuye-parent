@@ -69,10 +69,12 @@ public class LiveUser implements Serializable, UserDetails {
 
     @ApiModelProperty("创建时间")
     @TableField(fill = FieldFill.INSERT)
+    @JsonIgnore
     private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
+    @JsonIgnore
     private LocalDateTime updateTime;
 
 
